@@ -14,4 +14,3 @@ def dice_coefficient(y_true, y_pred, epsilon=1):
 
 def dice_coef_loss(y_true, y_pred):
     return 1 - dice_coefficient(y_true, y_pred)
-

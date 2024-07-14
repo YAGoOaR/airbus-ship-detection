@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-from myutils.loss import dice_coefficient, dice_coef_loss, IoU
-from data_preparation import load_image
+from my_utils.custom_loss import dice_coefficient, dice_coef_loss, IoU
+from my_utils.data_preparation import load_image
 from keras.saving import load_model
 
 import random
