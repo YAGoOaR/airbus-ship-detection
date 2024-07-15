@@ -9,8 +9,11 @@ from my_utils.plotting import save_history_plot
 from my_utils.data_preparation import DataGenerator, split_data
 from my_model import build_model
 
-# Here we define the path to our data and other variables
-DATASET = './airbus-ship-detection'
+# Here we define the path to our config, data and other variables
+config_path = 'dataset_path.txt'
+with open(config_path, 'r') as file:
+    DATASET = file.read().strip()
+
 TRAIN = f'{DATASET}/train_v2'
 SEGMENTATION = f'{DATASET}/train_ship_segmentations_v2.csv'
 

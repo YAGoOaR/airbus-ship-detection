@@ -8,7 +8,9 @@ from my_utils.custom_loss import dice_coefficient, dice_coef_loss, IoU # Custom 
 from my_utils.data_preparation import load_image # data preprocessing
 
 # Path to data
-DATASET = './airbus-ship-detection'
+config_path = 'dataset_path.txt'
+with open(config_path, 'r') as file:
+    DATASET = file.read().strip()
 TEST = f'{DATASET}/test_v2'
 
 # We are not interested in empty images with water only
