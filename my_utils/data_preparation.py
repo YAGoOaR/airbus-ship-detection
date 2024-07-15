@@ -17,16 +17,21 @@ transform = A.Compose([
     A.VerticalFlip(p=0.5),
 ])
 
-# Get normalized and resized BGR image
 def load_image(path: str, size: tuple[int, int]) -> np.ndarray:
+    '''
+    Get normalized and resized BGR image.
+    '''
     img = cv2.imread(path)
     img = cv2.resize(img, size)
     img = img / 255.0
     return img
 
-# We need a generator to load and send data by batches.
-# Obviously, we can't load such dataset entirely in our GPU memory.
+# Obviously, we can't just load big datasets entirely in our GPU memory. 
+# That's why we need a generator - to load and process input data by batches on demand.
 class DataGenerator(Sequence):
+    '''
+    Generates data batches.
+    '''
     def __init__(
             self, 
             image_folder: str, 
@@ -40,24 +45,32 @@ class DataGenerator(Sequence):
         self.image_size = image_size
         self.data = data
 
-    # Number of batches
     def __len__(self):
+        '''
+        Returns the number of batches.
+        '''
         return int(len(self.data) / self.batch_size)
     
-    # Join data folder with image name
     def get_img_path(self, name: str) -> str:
+        '''
+        Joins data folder with image name.
+        '''
         return os.path.join(self.image_folder, name)
 
-    # Merges different ship masks into one mask (for each image)
     @staticmethod
     def merge_masks(masks: np.ndarray, imsize: tuple[int, int]) -> np.ndarray[float]:
+        '''
+        Merges different segmentation masks into a single mask.
+        '''
         if len(masks) == 0:
             return np.zeros((imsize), dtype=float)
         else:
             return np.sum(masks, dtype=float, axis=0)
 
-    # Get a single batch
     def __getitem__(self, index: int):
+        '''
+        Get a single batch.
+        '''
         batch_data = self.data[index * self.batch_size:(index + 1) * self.batch_size] # get data by index offset
 
         # Process input images (X) and corresponding masks (Y)

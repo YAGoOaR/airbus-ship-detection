@@ -1,8 +1,10 @@
 
 import matplotlib.pyplot as plt
 
-# Draw training performance results
 def save_history_plot(history, path: str = './training_results.png'):
+    '''
+    Draw training performance results
+    '''
 
     plt.figure(figsize=(16, 5))
 

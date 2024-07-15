@@ -39,10 +39,13 @@ selected_indices = selected_indices[:images_to_show]
 # Get their paths
 images = [os.path.join(TEST, os.listdir(TEST)[idx]) for idx in selected_indices]
 
-# Display images in 2 columns
-# Left column - input images
-# Right column - predicted masks
+
 def model_demo(images: list[str], model: tf.keras.Model, count: int = 6) -> None:
+    '''
+    Display images in 2 columns.
+    Left column - input images.
+    Right column - predicted masks.
+    '''
     columns = 2
     fig, axs = plt.subplots(count, columns, figsize=(7, 12))
 
