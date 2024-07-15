@@ -5,12 +5,11 @@ from keras.activations import sigmoid
 # Here is a U-net based model
 # However, I decided to make it's size smaller to fit our needs for the solution
 
-# 
 # In the original U-net architecture batch normalization is not used.
 # However, I decided to add batch normalization to see probable improvements.
 def convolution_3x3(x, filters: int):
     '''
-    Just a simple 3x3 convolution. 
+    A simple 3x3 convolution. 
     '''
     x = Conv2D(filters, 3, padding='same')(x)
     x = BatchNormalization()(x)

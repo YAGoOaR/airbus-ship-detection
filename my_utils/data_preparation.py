@@ -86,9 +86,10 @@ class DataGenerator(Sequence):
 
         return transformed['image'], transformed['mask']
 
-# Group ship masks by images
 def group_masks(df: pd.DataFrame) -> pd.DataFrame:
-
+    '''
+    Group ship masks by images
+    '''
     def masks_to_list(masks):
         lst = list(masks)
         # Empty segmented images have NaN values, so they should be filtered out:
@@ -96,8 +97,11 @@ def group_masks(df: pd.DataFrame) -> pd.DataFrame:
 
     return df.groupby('ImageId')['EncodedPixels'].agg(masks_to_list)
 
-# Transform mask data to use for training and form training and validation sets
 def split_data(data: pd.DataFrame, empty_image_ratio:float=None, test_size:float=0.2, random_state:int=42) -> tuple[pd.DataFrame, pd.DataFrame]:
+    '''
+    Prepare mask data and form training and validation sets.
+    '''
+    
     masks = group_masks(data) # Group ship masks by images
 
     # Separate data with and without ships
