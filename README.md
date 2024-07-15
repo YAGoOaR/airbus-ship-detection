@@ -22,8 +22,8 @@ It is always beneficial to augment the training data. In this project I decided 
 The model architecture used in this project is U-net. I slightly changed it - reduced the model and input size to improve training time.
 The input image size is 384x384 now (half the original size). It can impact only the smallest ships. However most of the data has clearly visible ships.
 
-[comment]: <> (TODO: add an illustration)
-![model_visualization](pictures/model.png)
+<!-- TODO: add an illustration -->
+<!-- ![model_visualization](pictures/model.png) -->
 
 The model is basically an autoencoder but with skip features.
 As we know, autoencoder consists of an encoder and a decoder.
@@ -39,7 +39,6 @@ For the model optimization, I used Adam optimizer with learning rate 0.007 (furt
 Batch size is 4 to fit my GPU capabilities.
 Training process took 40 epochs, 10 hours total.
 
-[comment]: <> (TODO: upload an illustration)
 ![training_history](pictures/training_history.png)
 
 During the training process, the model reached Dice score of 0.867. 
@@ -48,7 +47,6 @@ For further improvements, I would use more augmentation methods in the pipeline 
 ### Results
 The model succesfully predicts ships on images:
 
-[comment]: <> (TODO: upload an illustration)
 ![result_demo](pictures/result_demo.png)
 
 The model may sometimes struggle with ships that have a really tiny size that I can barely see with my eyes. That's because I reduced the input size to half the initial size so such ship does not cover much pixels in the model's input. The solution can be very simple. 768x768 image can be divided into 4 384x384 images and processed separately. Or just zoom in better when making such photos. The problem is that I can't train a model on bigger image size while not having sufficient computational resources. That's why I decided to train on 384x384.
