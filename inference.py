@@ -11,6 +11,7 @@ from my_utils.data_preparation import load_image # data preprocessing
 config_path = 'dataset_path.txt'
 with open(config_path, 'r') as file:
     DATASET = file.read().strip()
+    
 TEST = f'{DATASET}/test_v2'
 
 # We are not interested in empty images with water only
@@ -25,7 +26,7 @@ custom_objects = {
 }
 
 # Loading the model using custom metrics
-model: tf.keras.Model = load_model("model.keras", custom_objects=custom_objects)
+model: tf.keras.Model = load_model("./trained_models/384x384_1/model.keras", custom_objects=custom_objects)
 
 # Use same image height and width as in the model's input layer
 image_size = model.input.shape[1:3]
