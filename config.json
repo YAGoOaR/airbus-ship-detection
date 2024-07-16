@@ -1,1 +1,1 @@
-{"dataset_path":"..\/dataset","input_path":".\/demo_images","output_path":".\/output", "inference_draw_input_image_too": false}
+{"dataset_path":".\/dataset","input_path":".\/demo_images","output_path":".\/output", "inference_draw_input_image_too": false}

@@ -10,10 +10,8 @@ from src.data_preparation import DataGenerator, split_data
 from src.my_model import build_model
 
 # Here we define the path to our config, data and other variables
-config_path = 'dataset_path.txt'
-with open(config_path, 'r') as file:
-    DATASET = file.read().strip()
-
+config = pd.read_json('config.json', typ='series', dtype=str)
+DATASET: str = config['dataset_path']
 TRAIN = f'{DATASET}/train_v2'
 SEGMENTATION = f'{DATASET}/train_ship_segmentations_v2.csv'
 
