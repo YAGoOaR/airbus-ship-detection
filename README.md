@@ -6,11 +6,31 @@ In this solution, I have built a U-Net model that performs image segmentation.
 The tools recommended for the task were python, Keras (with tensorflow backend), and U-net model with Dice score metric.
 Along with these tools, I decided to use pandas for data loading and processing data frames, OpenCV for loading and processing images, scikit learn to stratify and split data, matplotlib to draw images and graphs. 
 
+You can use the [requirements.txt](requirements.txt) to recover the complete conda environment with all installed libraries. However, there is a more concise list (that only includes libraries that are used in code), that was made using `pipreqs`:
+```pip
+albumentations==1.4.1
+keras==2.13.1
+matplotlib==3.8.4
+numpy==1.26.4
+opencv-python==4.10.0.84
+opencv-python_headless==4.10.0.84
+pandas==2.2.2
+scikit-learn==1.4.2
+scikit-image==0.23.2
+tensorflow==2.13.0
+```
+Python version: 3.10.13
+
 ### EDA
 > [View notebook](EDA/EDA.ipynb)
 
 In the exploratory data analysis I discovered features of the given data.
 Input images have 768x768 size, and RGB channels. Decoded segmentation masks are 768x768, binary color.
+
+Examples from data:
+
+![Examples](pictures/examples.png)
+
 Mask images are encoded into Run-Length format. As the name implies, such format consists of runs and lengths that paint the pixels of an image.
 The data has big imbalance. There are much more images where the ships are absent than images where there are ships. The pixel class imbalance is even greater.
 To reduce training time and balance the dataset better, I dropped images without annotated ships.
