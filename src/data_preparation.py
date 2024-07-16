@@ -79,7 +79,7 @@ class DataGenerator(Sequence):
         X = np.array([*X]) # Compute list, put into array
 
         Y = ([decode_RLE(mask, out_shape=self.image_size) for mask in masks] for masks in batch_data) # Decode each mask
-        Y = (self.merge_masks(masks) for masks in Y) # Merge masks from same images
+        Y = (self.merge_masks(masks, self.image_size) for masks in Y) # Merge masks from same images
         Y = np.array([*Y])
 
         transformed = transform(image=X, mask=Y) # Augmentation transformation
