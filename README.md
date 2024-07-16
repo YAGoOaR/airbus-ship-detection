@@ -48,9 +48,6 @@ It is always beneficial to augment the training data. In this project I decided 
 The model architecture used in this project is U-net. I slightly changed it - reduced the model and input size to improve training time.
 The input image size is 384x384 now (half the original size). It can impact only the smallest ships. However most of the data has clearly visible ships.
 
-<!-- TODO: add an illustration -->
-<!-- ![model_visualization](pictures/model.png) -->
-
 The model is basically an autoencoder but with skip features.
 As we know, autoencoder consists of an encoder and a decoder.
 Encoder increases feature information, reducing the image dimensionality. 
@@ -69,7 +66,7 @@ Training process took 40 epochs, 10 hours total.
 
 ![training_history](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/training_history.png?raw=true)
 
-During the training process, the model reached Dice score of 0.867. 
+During the training process, the model reached Dice score of 0.867 on validation data. 
 For further improvements, I would use more augmentation methods in the pipeline (e.g. random hue/brightness/gamma/noise, spatial distortions, random cropping & resizing, etc.), and a pretrained encoder for the U-net model, such as VGG, ResNet, etc.
 
 ### Results
@@ -78,6 +75,8 @@ The model succesfully predicts ships on images (TEST DATA):
 ![result_demo](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/result_demo.png?raw=true)
 
 > View output demo to see more prediction results on test data.<br>
+> For the demonstration images, I selected 128 of the first images from test data I see a ship on.
+> There are too many images without ships, so I decided to select images with ships manually. 
 > [Demo outputs (images with ships only)](output_demo)
 
 The model may sometimes struggle with ships that have a really tiny size that I can barely see with my eyes. That's because I reduced the input size to half the initial size so such ship does not cover much pixels in the model's input. The solution can be very simple. 768x768 image can be divided into 4 384x384 images and processed separately. Or just zoom in better when making such photos. The problem is that I can't train a model on bigger image size while not having sufficient computational resources. That's why I decided to train on 384x384.
