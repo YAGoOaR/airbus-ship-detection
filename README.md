@@ -7,6 +7,8 @@ The tools recommended for the task were python, Keras (with tensorflow backend),
 Along with these tools, I decided to use pandas for data loading and processing data frames, OpenCV for loading and processing images, scikit learn to stratify and split data, matplotlib to draw images and graphs. 
 
 ### EDA
+> [View notebook](EDA/EDA.ipynb)
+
 In the exploratory data analysis I discovered features of the given data.
 Input images have 768x768 size, and RGB channels. Decoded segmentation masks are 768x768, binary color.
 Mask images are encoded into Run-Length format. As the name implies, such format consists of runs and lengths that paint the pixels of an image.
@@ -14,11 +16,15 @@ The data has big imbalance. There are much more images where the ships are absen
 To reduce training time and balance the dataset better, I dropped images without annotated ships.
 
 ### Preparing the data
+> [View data preparation](my_utils/data_preparation.py)
+
 At first, I read images using opencv library. Since it returns data in BGR format, I decided to use the same channel order in the model.
 Segmentation data needs to be decoded first, then different ship masks should be merged into one for each image. This way the model sees all ships at once and can correctly compute loss and train.
 It is always beneficial to augment the training data. In this project I decided to only use horizontal and vertical image flipping because I found it sufficient to get good results. We can easily add brightness/gamma/hue/spatial augmentations to make the score even better, but the training should be done once again.
 
 ### Creating a model
+> [View model code](my_model.py)
+
 The model architecture used in this project is U-net. I slightly changed it - reduced the model and input size to improve training time.
 The input image size is 384x384 now (half the original size). It can impact only the smallest ships. However most of the data has clearly visible ships.
 
@@ -31,6 +37,8 @@ Encoder increases feature information, reducing the image dimensionality.
 The decoder combines the features and spatial information (using skip features from the encoder), upsampling the segmentation data.
 
 ### Training the model
+> [View training code](training.py)
+
 The model was trained using ReduceLrOnPlateau and EarlyStopping keras callbacks.
 ReduceLrOnPlateau helps to control the learning rate when it is needed (when model's paremeters reach local loss function plateau).
 Early stopping (based on validation score) makes it easier not to overfit the model by stopping the training in time. 
@@ -67,3 +75,5 @@ But overall, I am very satisfied by the result of a my model, taking into accoun
 2. Set `input_path` field in `config.json` to define the input data directory. Also set the `output_path`.
 3. Set `inference_draw_input_image_too` to true if you want to draw both input and output images.
 4. Run `inference.py` to get predictions.
+
+> [See inference code](inference.py)
