@@ -73,12 +73,12 @@ During the training process, the model reached Dice score of 0.867.
 For further improvements, I would use more augmentation methods in the pipeline (e.g. random hue/brightness/gamma/noise, spatial distortions, random cropping & resizing, etc.), and a pretrained encoder for the U-net model, such as VGG, ResNet, etc.
 
 ### Results
-The model succesfully predicts ships on images:
+The model succesfully predicts ships on images (TEST DATA):
 
 ![result_demo](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/result_demo.png?raw=true)
 
-> View output demo to see more prediction results.
-> [Demo outputs](output_demo)
+> View output demo to see more prediction results on test data.<br>
+> [Demo outputs (images with ships only)](output_demo)
 
 The model may sometimes struggle with ships that have a really tiny size that I can barely see with my eyes. That's because I reduced the input size to half the initial size so such ship does not cover much pixels in the model's input. The solution can be very simple. 768x768 image can be divided into 4 384x384 images and processed separately. Or just zoom in better when making such photos. The problem is that I can't train a model on bigger image size while not having sufficient computational resources. That's why I decided to train on 384x384.
 Also the model may have some problems when the ship is moored to a prier. The model may notice ship in such cases but have some problems segmenting it correctly, separating from all other objects and garbage near the prier/shore.
