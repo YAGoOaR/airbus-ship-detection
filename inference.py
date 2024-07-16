@@ -2,7 +2,7 @@ import tensorflow as tf, numpy as np
 from keras.saving import load_model
 import cv2
 import matplotlib.pyplot as plt
-import os, random
+import os
 import pandas as pd
 
 from my_utils.custom_loss import dice_coefficient, dice_coef_loss, IoU # Custom loss and metrics
@@ -10,7 +10,7 @@ from my_utils.data_preparation import load_image # data preprocessing
 
 # Load configuration
 config = pd.read_json('config.json', typ='series', dtype=str)
-DEMO_FOLDER = config['demo_path']
+INPUT_FOLDER = config['input_path']
 OUTPUT_FOLDER = config['output_path']
 
 # Custom objects (that were used when compiling a model) are needed to be specified to restore the model.
@@ -23,13 +23,14 @@ custom_objects = {
 # Loading the model using custom metrics
 model: tf.keras.Model = load_model("./trained_models/384x384_1/model.keras", custom_objects=custom_objects)
 
-image_names = os.listdir(DEMO_FOLDER)
-image_paths = [os.path.join(DEMO_FOLDER, name) for name in image_names]
+image_names = os.listdir(INPUT_FOLDER)
+image_paths = [os.path.join(INPUT_FOLDER, name) for name in image_names]
 
 # Use same image height and width as in the model's input layer
 image_size = model.input.shape[1:3]
 
-os.mkdir(OUTPUT_FOLDER, exist_ok=True)
+if not os.path.exists(OUTPUT_FOLDER):
+    os.mkdir(OUTPUT_FOLDER)
 
 for image_path in image_paths:
     img = load_image(image_path, image_size)
