@@ -10,8 +10,9 @@ from my_utils.data_preparation import load_image # data preprocessing
 
 # Load configuration
 config = pd.read_json('config.json', typ='series', dtype=str)
-INPUT_FOLDER = config['input_path']
-OUTPUT_FOLDER = config['output_path']
+INPUT_FOLDER: str = config['input_path']
+OUTPUT_FOLDER: str = config['output_path']
+draw_input: bool = True if config['inference_draw_input_image_too'] == 'True' else False
 
 # Custom objects (that were used when compiling a model) are needed to be specified to restore the model.
 custom_objects = {
@@ -35,21 +36,30 @@ if not os.path.exists(OUTPUT_FOLDER):
 for image_path in image_paths:
     img = load_image(image_path, image_size)
     input_image_BGR = np.expand_dims(img, axis=0)
-    img_rgb = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2RGB) # Convert to RGB (the model uses BGR)
+
 
     output_mask: np.ndarray = model.predict(input_image_BGR, verbose=0) # Predict ships
     output_mask = (output_mask > 0.3).astype(int) # Set pixel confidence threshold to 0.3
     output_mask = np.squeeze(output_mask, axis=0)
 
-    fig, axs = plt.subplots(2, figsize=(7, 12))
+    output_path = os.path.join(OUTPUT_FOLDER, os.path.basename(image_path))
 
-    # Display image and predicted ships
-    axs[0].imshow(img_rgb)
-    axs[0].axis("off")
-    
-    axs[1].imshow(output_mask)
-    axs[1].axis('off')
+    if draw_input:
+        # Display both images
+        fig, axs = plt.subplots(2, figsize=(7, 12))
 
-    # Save to output
-    plt.savefig(os.path.join(OUTPUT_FOLDER, os.path.basename(image_path)))
-    plt.close(fig)
+        img_rgb = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2RGB) # Convert to RGB (the model uses BGR)
+
+        # Display image and predicted ships
+        axs[0].imshow(img_rgb)
+        axs[0].axis("off")
+        
+        axs[1].imshow(output_mask)
+        axs[1].axis('off')
+
+        # Save to output
+        plt.savefig(output_path)
+        plt.close(fig)
+    else:
+        cv2.imwrite(output_path, output_mask * 255)
+

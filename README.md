@@ -62,4 +62,5 @@ But overall, I am very satisfied by the result of a my model, taking into accoun
 ### Usage
 1. Load the same conda environment using the `requirements.txt`.
 2. Set `input_path` field in `config.json` to define the input data directory. Also set the `output_path`.
-3. Run `inference.py` to get predictions.
+3. Set `inference_draw_input_image_too` to true if you want to draw both input and output images.
+4. Run `inference.py` to get predictions.
