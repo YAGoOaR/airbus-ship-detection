@@ -60,6 +60,6 @@ But overall, I am very satisfied by the result of a my model, taking into accoun
 - Use more augmentation methods (e.g. random hue/brightness/gamma/noise, spatial distortions, cropping & resizing to have more various zoom, etc.)
 
 ### Usage
-1. Load the same conda environment using the `requirements.txt`
-2. Write the path to the dataset in `dataset_path.txt`
-3. Run `inference.py`
+1. Load the same conda environment using the `requirements.txt`.
+2. Update the path to the dataset in `dataset_path.txt`.
+3. Run `inference.py` to run the model.
