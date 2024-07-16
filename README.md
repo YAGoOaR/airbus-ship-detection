@@ -29,7 +29,7 @@ Input images have 768x768 size, and RGB channels. Decoded segmentation masks are
 
 Examples from data:
 
-![Examples](pictures/examples.png)
+![Examples](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/examples.png?raw=true)
 
 Mask images are encoded into Run-Length format. As the name implies, such format consists of runs and lengths that paint the pixels of an image.
 The data has big imbalance. There are much more images where the ships are absent than images where there are ships. The pixel class imbalance is even greater.
@@ -67,7 +67,7 @@ For the model optimization, I used Adam optimizer with learning rate 0.007 (furt
 Batch size is 4 to fit my GPU capabilities.
 Training process took 40 epochs, 10 hours total.
 
-![training_history](pictures/training_history.png)
+![training_history](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/training_history.png?raw=true)
 
 During the training process, the model reached Dice score of 0.867. 
 For further improvements, I would use more augmentation methods in the pipeline (e.g. random hue/brightness/gamma/noise, spatial distortions, random cropping & resizing, etc.), and a pretrained encoder for the U-net model, such as VGG, ResNet, etc.
@@ -75,7 +75,7 @@ For further improvements, I would use more augmentation methods in the pipeline 
 ### Results
 The model succesfully predicts ships on images:
 
-![result_demo](pictures/result_demo.png)
+![result_demo](https://github.com/YAGoOaR/Images/blob/main/PythonSegmentation/result_demo.png?raw=true)
 
 > View output demo to see more prediction results.
 > [Demo outputs](output_demo)
