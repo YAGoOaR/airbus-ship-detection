@@ -49,6 +49,9 @@ The model succesfully predicts ships on images:
 
 ![result_demo](pictures/result_demo.png)
 
+> View output demo to see more prediction results.
+> [Demo outputs](output_demo)
+
 The model may sometimes struggle with ships that have a really tiny size that I can barely see with my eyes. That's because I reduced the input size to half the initial size so such ship does not cover much pixels in the model's input. The solution can be very simple. 768x768 image can be divided into 4 384x384 images and processed separately. Or just zoom in better when making such photos. The problem is that I can't train a model on bigger image size while not having sufficient computational resources. That's why I decided to train on 384x384.
 Also the model may have some problems when the ship is moored to a prier. The model may notice ship in such cases but have some problems segmenting it correctly, separating from all other objects and garbage near the prier/shore.
 But overall, I am very satisfied by the result of a my model, taking into account the resources I had for training it.
