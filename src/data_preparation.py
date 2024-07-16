@@ -4,7 +4,7 @@ import cv2
 from keras.utils import Sequence
 import pandas as pd
 import numpy as np
-from my_utils.encoding import decode_RLE
+from src.encoding import decode_RLE
 
 import albumentations as A # Augmentation
 from sklearn.model_selection import train_test_split # Splitting to train and validation

@@ -4,10 +4,10 @@ import tensorflow as tf
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
 # To reduce code complexity, I split code into these files:
-from my_utils.custom_loss import dice_coefficient, dice_coef_loss, IoU
-from my_utils.plotting import save_history_plot
-from my_utils.data_preparation import DataGenerator, split_data
-from my_model import build_model
+from src.custom_loss import dice_coefficient, dice_coef_loss, IoU
+from src.plotting import save_history_plot
+from src.data_preparation import DataGenerator, split_data
+from src.my_model import build_model
 
 # Here we define the path to our config, data and other variables
 config_path = 'dataset_path.txt'

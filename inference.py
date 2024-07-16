@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 
-from my_utils.custom_loss import dice_coefficient, dice_coef_loss, IoU # Custom loss and metrics
-from my_utils.data_preparation import load_image # data preprocessing
+from src.custom_loss import dice_coefficient, dice_coef_loss, IoU # Custom loss and metrics
+from src.data_preparation import load_image # data preprocessing
 
 # Load configuration
 config = pd.read_json('config.json', typ='series', dtype=str)
@@ -36,7 +36,6 @@ if not os.path.exists(OUTPUT_FOLDER):
 for image_path in image_paths:
     img = load_image(image_path, image_size)
     input_image_BGR = np.expand_dims(img, axis=0)
-
 
     output_mask: np.ndarray = model.predict(input_image_BGR, verbose=0) # Predict ships
     output_mask = (output_mask > 0.3).astype(int) # Set pixel confidence threshold to 0.3
